@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'music_stream',
 ]
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+
+CSRF_COOKIE_SECURE = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -3,7 +3,7 @@ from .models import Song
 # Register your models here.
 
 class SongAdmin(admin.ModelAdmin):
-    list_display = ('url','title','description','path','count')
+    list_display = ('author','title','description','path','count')
     
 
 admin.site.register(Song, SongAdmin)

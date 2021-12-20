@@ -1,14 +1,21 @@
 import React, {Component} from "react";
 import SongPlayer from "../SongPlayer/SongPlayer";
-import {Form, FormGroup, Input, Label, Button} from 'reactstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlayCircle} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
+import Input from "../Input/Input";
+import {Button} from "reactstrap";
+
 
 class Home extends  Component{
     constructor(props) {
         super(props);
         this.state = {
             songs:[],
-            play:false,
+            playing:false,
+            current:'',
+            adding: false,
         };
     }
 
@@ -28,42 +35,65 @@ class Home extends  Component{
         });
     }
 
-    handleSubmit = () =>{
+    playSong = (title) =>{
         this.setState({
-            play: !this.state.play
+            playing: true,
+            current: "videos/"+title+".mp4",
         })
+    }
+
+    addSong = () => {
+        this.setState((state) =>({
+            adding: !state.adding,
+        }));
+    }
+    renderSongs = () => {
+        const newSongs = this.state.songs;
+
+        return newSongs.map((song) => (
+            <li key={song.title}>
+                <h4>{song.title}</h4>
+                <p>{song.description}</p>
+                <button onClick={() => this.playSong(song.title)}>
+                    <FontAwesomeIcon icon={faPlayCircle}  />
+                </button>
+
+                <br/>
+                <span>You played this song {song.count} times !</span>
+
+            </li>
+
+        ))
     }
 
     render(){
         return(
           <div>
-              {this.state.play ? (
-                      <SongPlayer url={this.state.url}/>
-              ) :
-                  <Form>
-                      <FormGroup>
-                          <Label for="song-url">URL</Label>
-                          <Input
-                              type="text"
-                              id="song-url"
-                              name="url"
-                              value={this.state.url}
-                              onChange={this.handleChange}
-                              placeholder="Enter the video url"
-                          />
-                          <Button color="success"
-                                  onClick={() => this.handleSubmit}
-                          >
-                              Play
-                          </Button>
-                      </FormGroup>
-                  </Form>
+              <div>
+                  {this.state.adding ? (
+                      <Input />
 
-              }
+                  ) :
+                      <Button className="btn btn-primary"
+                              onClick={this.addSong}
+                      >Add Song </Button>
 
+                  }
 
+              </div>
+              <div className="container d-flex">
+                  <ul>
+                      {this.renderSongs()}
+                  </ul>
 
+                  {this.state.playing ? (
+                      <SongPlayer title={this.state.current} />
+                  ) : null
+                  }
+
+              </div>
           </div>
+
         );
     }
 }

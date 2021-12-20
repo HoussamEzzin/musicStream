@@ -6,13 +6,13 @@ class SongPlayer extends Component{
 
     render(){
         return(
-            <div>
+            <div className="container">
                 <div className="player-wrapper">
                     <ReactPlayer
                         className="react-player "
-                        url = {this.props.url}
-                        width = '50%'
-                        height = '50%'
+                        url = {this.props.title}
+                        width = '100%'
+                        height = '100%'
                         controls={true}
                     />
                 </div>
