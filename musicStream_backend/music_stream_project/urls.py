@@ -25,5 +25,6 @@ router.register(r'songs', views.SongView, 'song')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('search/', views.search)
 
 ]

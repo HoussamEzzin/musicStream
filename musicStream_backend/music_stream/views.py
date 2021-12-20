@@ -9,12 +9,15 @@ from music_stream.song_download import download_video_by_keyword, download_video
 class SongView(viewsets.ModelViewSet):
     serializer_class = SongSerializer
     queryset = Song.objects.all()
+    
+def search(request):
+    print(request.body)
 
 
 #still need to pass data from front-end to back-end
 # keyword : react to django
 # django / get url from keyword
-# send url video back to ract
+# send path file back to react
     
     
     
